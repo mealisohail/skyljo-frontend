@@ -66,8 +66,8 @@ export function Navbar() {
     <header className="sticky top-0 z-10 w-full bg-white shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:shadow-secondary">
       <div className="mx-4 sm:mx-8 flex h-[68px] items-center">
         <div className="flex flex-1 items-center space-x-2 justify-end">
-          <NotificationComponent />
-          <HelpComponent />
+          {/* <NotificationComponent /> */}
+          {/* <HelpComponent /> */}
           <UserComponent />
         </div>
       </div>

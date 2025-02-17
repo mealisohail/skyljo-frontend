@@ -14,16 +14,16 @@ export function SidebarToggle({ isOpen, setIsOpen }: SidebarToggleProps) {
   return (
     <div
       className={cn(
-        "flex justify-end bg-[#ededed] hover:bg-[#EDEDED] text-[#000] -mx-3"
+        "flex justify-end bg-[#ffffff] text-[#000] -mx-3"
       )}
       style={{
-        borderTop: "1px solid #d7d7d7",
-        borderBottom: "1px solid #d7d7d7",
+        // borderTop: "1px solid #d7d7d7",
+        // borderBottom: "1px solid #d7d7d7",
       }}
     >
       <Button
         onClick={() => setIsOpen?.()}
-        className="bg-inherit text-[#000] hover:bg-inherit"
+        className="bg-white text-[#000] hover:bg-inherit"
         size="icon"
       >
         {/* <ListEnd

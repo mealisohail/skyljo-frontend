@@ -41,7 +41,7 @@ export function Menu({ isOpen }: MenuProps) {
         <ul className="flex flex-col items-start space-y-1 px-2">
           {menuList.map(({ groupLabel, menus }, index) => (
             <li className="w-full" key={index}>
-              {groupLabel ? <LineComponent /> : null}
+              {/* {groupLabel ? <LineComponent /> : null} */}
               {menus.map(
                 ({ href, label, icon: Icon, active, submenus }, index) =>
                   submenus.length === 0 ? (
@@ -99,7 +99,7 @@ export function Menu({ isOpen }: MenuProps) {
                     </div>
                   )
               )}
-              {groupLabel ? <LineComponent /> : null}
+              {/* {groupLabel ? <LineComponent /> : null} */}
             </li>
           ))}
         </ul>
