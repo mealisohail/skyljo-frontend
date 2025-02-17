@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { makeApiCall } from "./api-call";
 import { useRouter } from "next/navigation";
 import { getToken } from "@/lib/utils";
+import Image from "next/image";
 
 type User = {
   email: string;
@@ -23,32 +24,32 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
-  // Load token from localStorage when app initializes
+  // Load token from localStorage and handle loading state when app initializes
   useEffect(() => {
     const token = getToken();
 
-    if(!token?.token) {
-      router.push('/');
+    if (!token?.token) {
+      router.push("/");
+      setLoading(false);
       return;
     }
 
-    if(token?.token){
-      // router.push('/dashboard');
-      setAccessToken(token?.token);
-    }
-
+    setAccessToken(token?.token);
+    setLoading(false);
   }, []);
 
   // Sign In Function
   const handleSignIn = async (values: { email: string; password: string }) => {
     try {
-      const userData = await makeApiCall<
-        User & { tokens: { access: { token: string } } }
-      >("login", "POST", values);
-      localStorage.setItem("accessToken", userData?.tokens?.access?.token);
+      const userData = await makeApiCall("login", "POST", values);
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify(userData?.tokens?.access)
+      );
       setAccessToken(userData?.tokens?.access?.token);
-      setUser(userData?.user);
+      router.push("/dashboard");
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -72,6 +73,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setAccessToken(null);
     router.push("/"); // Redirect to login page
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen" >
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <AuthContext.Provider

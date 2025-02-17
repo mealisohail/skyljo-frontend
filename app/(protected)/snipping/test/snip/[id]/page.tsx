@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingVideoTrimmer from "@/components/skletons/loading-video-trimmer";
 import { Button } from "@/components/ui/button";
 import { makeApiCall } from "@/hooks/api-call";
 import { useAuth } from "@/hooks/auth-provider";
@@ -201,22 +202,16 @@ const page = () => {
   }, [accessToken]);
 
   return isLoading ? (
-    <>Loading...</>
+    <LoadingVideoTrimmer/>
   ) : (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "0px 50px",
-      }}
+      className="flex flex-row justify-center items-center  gap-[60px] mx-auto"
     >
       <div>
         <div style={{ textAlign: "center", marginBottom: 15 }}>
           {masterVideo?.title}
         </div>
-        <div className="flex gap-4 bg-gray-300 p-4">
+        <div className="flex gap-4 bg-white border rounded-md p-4">
           {masterVideo?.videoURLArray[0]?.videoURL1 && (
             <video
               ref={videoRef1}
@@ -263,9 +258,7 @@ const page = () => {
             className="w-full"
             onChange={handleSeek}
           />
-          <p className="mt-2">
-            {currentTime.toFixed(2)}s / {duration.toFixed(2)}s
-          </p>
+         
         </div>
         {duration ? (
           <div
@@ -285,21 +278,21 @@ const page = () => {
 
       <div style={{ marginRight: 20 }}>
         <div className="flex lg:flex-row flex-col items-center w-full justify-center gap-5">
-          <button
+          <Button
             onClick={handlePlay}
-            className="rounded-md bg-[#FF7645] text-white text-center py-3 lg:py-2 text-lg w-40"
+            className=" bg-[#FF7645] "
           >
             Play
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={handlePause}
-            className="border rounded-md border-[#474040] py-2 text-lg lg:py-1 w-40"
+            variant={"outline"}
           >
             Pause
-          </button>
+          </Button>
         </div>
         {/* Display all trim ranges */}
-        <div style={{ marginTop: "30px", display: "flex", gap: 25 }}>
+        <div style={{ marginTop: "30px", display: "flex", gap: 25 }} className="bg-[#f7e5e3] p-4 rounded-md" >
           <h3>Trim Ranges:</h3>
           <ul>
             {timestamps.map((timestamp, index) => (
@@ -333,21 +326,23 @@ const page = () => {
           </ul>
         </div>
         <div className="flex flex-col items-center w-full justify-center gap-5 mt-20">
-          <button
+          <Button
             onClick={handleStartTrim}
             disabled={videoRef1.current?.paused}
-            className="rounded-md bg-[#FF7645] text-white text-center py-3 lg:py-2 text-lg w-full"
+            className="w-full bg-[#FF7645]"
           >
             Start Trim
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={handleEndTrim}
             disabled={videoRef1.current?.paused}
-            className="border rounded-md border-[#474040] py-2 text-lg lg:py-1 w-full"
+            variant={"secondary"}
+            className="w-full border border-[#ff6652] text-[#ff6652] "
+
           >
             End Trim
-          </button>
-          <Button onClick={handleSendTests} className="bg-[#FF7645]">
+          </Button>
+          <Button onClick={handleSendTests} className="bg-[#FF7645] w-full ">
             End Tests
           </Button>
         </div>

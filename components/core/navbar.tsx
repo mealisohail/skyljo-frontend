@@ -1,10 +1,11 @@
 "use client";
 
-import { Bell, CircleHelp } from "lucide-react";
+import { Bell, CircleHelp, LogOut } from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 
 import pic from "@/public/assets/pic.jpg";
+import { useAuth } from "@/hooks/auth-provider";
 
 const NotificationComponent = () => {
   return (
@@ -28,7 +29,11 @@ const HelpComponent = () => {
         variant="outline"
         size="icon"
       >
-        <CircleHelp  fill="#222222" strokeWidth={1.75} className="h-6 w-6  text-[#fff]" />
+        <CircleHelp
+          fill="#222222"
+          strokeWidth={1.75}
+          className="h-6 w-6  text-[#fff]"
+        />
       </Button>
     </>
   );
@@ -50,11 +55,11 @@ const UserComponent = () => {
             className="rounded-md"
           />
         </div>{" "}
-        <div className="flex flex-col justify-center items-start ml-3 mt-2">
+        <div className="flex flex-col justify-center items-start ml-1">
           <div className="font-medium text-sm" style={{ lineHeight: 0.8 }}>
-            User Name
+            Admin
           </div>
-          <div className="text-[#8B8B8B] text-[12px]">Role </div>
+          {/* <div className="text-[#8B8B8B] text-[12px]">Role </div> */}
         </div>
       </Button>
     </>
@@ -62,12 +67,23 @@ const UserComponent = () => {
 };
 
 export function Navbar() {
+  const { handleLogout } = useAuth();
   return (
     <header className="sticky top-0 z-10 w-full bg-white shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:shadow-secondary">
       <div className="mx-4 sm:mx-8 flex h-[68px] items-center">
         <div className="flex flex-1 items-center space-x-2 justify-end">
           {/* <NotificationComponent /> */}
           {/* <HelpComponent /> */}
+          <Button onClick={handleLogout}
+            className="rounded-md w-10 h-10 bg-[#F2F2F2] "
+            variant="outline"
+            size="icon"
+          >
+            <LogOut
+              strokeWidth={1.75}
+              className="h-6 w-6  text-primary"
+            />
+          </Button>
           <UserComponent />
         </div>
       </div>

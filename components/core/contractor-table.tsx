@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { makeApiCall } from "@/hooks/api-call";
+import { useAuth } from "@/hooks/auth-provider";
 
 interface MasterVideo {
   safetyMeasures: string;
@@ -35,12 +37,9 @@ interface ContractorTest {
   createdAt: string;
 }
 
-export default function ContractorTestTable({
-  data,
-}: {
-  data: ContractorTest[];
-}) {
+export default function ContractorTestTable({ data, handleSendAI }) {
   const router = useRouter();
+  const { accessToken } = useAuth();
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -48,10 +47,6 @@ export default function ContractorTestTable({
       day: "numeric",
     });
   };
-
-  const handleSendAI = async() => {
-
-  }
 
   return (
     <Card className="w-full min-w-[1100px]">
@@ -105,7 +100,7 @@ export default function ContractorTestTable({
                   <TableCell className="text-right space-x-3">
                     {!video?.AIUniqueToken && (
                       <Button
-                        onClick={handleSendAI}
+                        onClick={() => handleSendAI(test?._id)}
                         className="bg-[#ff6652]"
                       >
                         Send to AI

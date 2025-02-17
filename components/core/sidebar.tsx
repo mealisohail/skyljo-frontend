@@ -8,8 +8,8 @@ import { SidebarToggle } from "@/components/core/sidebar-toggle";
 import { useSidebarToggle } from "@/hooks/slider/use-sidebar-toggle";
 import Image from "next/image";
 
-import logo from "@/public/assets/logo.png";
-import subLogo from "@/public/assets/subLogo.png";
+import logo from "@/public/assets/gravity-logo.png";
+import subLogo from "@/public/assets/sub-logo.png";
 
 export function Sidebar() {
   const { isOpen, setIsOpen } = useSidebarToggle();
@@ -23,7 +23,7 @@ export function Sidebar() {
       )}
     >
       <div className="relative h-full flex flex-col px-3 py-4 overflow-y-auto shadow-md dark:shadow-zinc-800">
-        {/* <Button
+        <Button
           className={cn(
             "transition-transform ease-in-out duration-300 mb-3",
             isOpen === false ? "translate-x-1" : "translate-x-0"
@@ -44,7 +44,7 @@ export function Sidebar() {
               <Image src={subLogo} width={50} height={50} alt="Logo" />
             )}
           </Link>
-        </Button> */}
+        </Button>
         <SidebarToggle isOpen={isOpen} setIsOpen={setIsOpen} />
         <Menu isOpen={isOpen} />
       </div>

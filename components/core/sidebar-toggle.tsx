@@ -26,13 +26,13 @@ export function SidebarToggle({ isOpen, setIsOpen }: SidebarToggleProps) {
         className="bg-white text-[#000] hover:bg-inherit"
         size="icon"
       >
-        {/* <ListEnd
+        <ListEnd
           className={cn(
-            "h-5 w-5 transition-transform ease-in-out duration-700"
-            // isOpen === false ? "rotate-180" : "rotate-0"
+            "h-5 w-5 transition-transform ease-in-out duration-700",
+            isOpen === false ? "rotate-180" : "rotate-0"
           )}
-        /> */}
-        <Image src={hamburger} width={80} height={80} alt="hamburger" />
+        />
+        {/* <Image src={hamburger} width={80} height={80} alt="hamburger" /> */}
       </Button>
     </div>
   );
