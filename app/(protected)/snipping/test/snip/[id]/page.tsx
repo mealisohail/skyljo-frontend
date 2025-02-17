@@ -4,12 +4,13 @@ import LoadingVideoTrimmer from "@/components/skletons/loading-video-trimmer";
 import { Button } from "@/components/ui/button";
 import { makeApiCall } from "@/hooks/api-call";
 import { useAuth } from "@/hooks/auth-provider";
+import { useToast } from "@/hooks/use-toast";
 import { useParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
 const page = () => {
   const { id } = useParams();
-
+  const { toast } = useToast();
   const { accessToken } = useAuth();
   const [masterVideo, setMasterVideo] = useState({});
   const [currentTime, setCurrentTime] = useState(0);
@@ -24,7 +25,6 @@ const page = () => {
   const seekBarRef = useRef(null);
 
   const handleSendTests = async () => {
-    console.log("timestamps==>", timestamps);
     const timestampsFormated = timestamps.map((item) => {
       const start = new Date(item.start * 1000)
         .toISOString()
@@ -52,13 +52,19 @@ const page = () => {
     });
 
     try {
-      await makeApiCall(
+      const snip = await makeApiCall(
         `videourl/update-snip/${masterVideo?.videoURLArray[0]?._id}`,
         "POST",
         { videoSnipTimeStamp: timestampsFormated },
         {},
         accessToken
       );
+      if(snip?.success){
+        toast({
+          title: "Test Ended",
+          description: "Test ended successfully!!",
+        })
+      }
     } catch (error) {}
   };
 
@@ -196,10 +202,8 @@ const page = () => {
   };
 
   useEffect(() => {
-    if (accessToken) {
       getContractorById();
-    }
-  }, [accessToken]);
+  }, []);
 
   return isLoading ? (
     <LoadingVideoTrimmer/>

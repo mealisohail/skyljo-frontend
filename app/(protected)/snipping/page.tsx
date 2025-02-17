@@ -55,8 +55,8 @@ export default function ContractorsGrid() {
                   <div className="w-[100px] h-[100px] relative">
                     <Image
                       src={
-                        contractor?.companyLogo ||
-                        "https://cdn-icons-png.flaticon.com/512/8015/8015003.png"
+                        contractor?.companyLogo === 'https://example.com/logo.png' ? 
+                        "https://cdn-icons-png.flaticon.com/512/8015/8015003.png" : contractor?.companyLogo
                       }
                       alt={`${contractor?.companyName} logo`}
                       layout="fill"

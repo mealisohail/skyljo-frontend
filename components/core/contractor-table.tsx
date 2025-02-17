@@ -64,7 +64,7 @@ export default function ContractorTestTable({ data, handleSendAI }) {
               <TableHead className="w-[200px]">Test Title</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="text-right">Created At</TableHead>
+              <TableHead className="">Created At</TableHead>
               <TableHead className="text-right">Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -80,7 +80,7 @@ export default function ContractorTestTable({ data, handleSendAI }) {
                       {test.TestTitle}
                     </TableCell>
                   )}
-                  <TableCell className="text-right">
+                  <TableCell >
                     Master {videoIndex + 1}
                   </TableCell>
                   <TableCell>
@@ -94,10 +94,10 @@ export default function ContractorTestTable({ data, handleSendAI }) {
                       {video.StatusFromAI}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="">
                     {formatDate(video.createdAt)}
                   </TableCell>
-                  <TableCell className="text-right space-x-3">
+                  <TableCell className="space-x-3 text-right">
                     {!video?.AIUniqueToken && (
                       <Button
                         onClick={() => handleSendAI(test?._id)}

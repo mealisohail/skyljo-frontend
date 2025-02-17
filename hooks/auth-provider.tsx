@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { makeApiCall } from "./api-call";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { getToken } from "@/lib/utils";
 import Image from "next/image";
 
@@ -25,10 +25,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const pathname = usePathname();
 
   // Load token from localStorage and handle loading state when app initializes
   useEffect(() => {
     const token = getToken();
+
+    if (token?.token && pathname === "/") {
+      router.push("/dashboard");
+      setLoading(false);
+      return;
+    }
 
     if (!token?.token) {
       router.push("/");
@@ -76,7 +83,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen" >
+      <div className="flex justify-center items-center h-screen">
         <p>Loading...</p>
       </div>
     );
