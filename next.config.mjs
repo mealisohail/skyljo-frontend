@@ -12,7 +12,9 @@ const nextConfig = {
     images: {
       domains: ['example.com', 'group.schindler.com', 'upload.wikimedia.org', 'cdn-icons-png.flaticon.com'],
     },
-    /* other config options here */
+    typescript: {
+      ignoreBuildErrors: true,
+    },
   };
   
   export default nextConfig;

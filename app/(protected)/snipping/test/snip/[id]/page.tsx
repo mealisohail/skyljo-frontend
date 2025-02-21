@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
-const page = () => {
+const Page = () => {
   const { id } = useParams();
   const { toast } = useToast();
   const { accessToken } = useAuth();
@@ -355,4 +355,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
