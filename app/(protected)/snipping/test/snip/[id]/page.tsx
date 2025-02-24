@@ -55,7 +55,9 @@ const Page = () => {
       const snip = await makeApiCall(
         `videourl/update-snip/${masterVideo?.videoURLArray[0]?._id}`,
         "POST",
-        { videoSnipTimeStamp: timestampsFormated },
+        { videoSnipTimeStamp: timestampsFormated,
+          masterVideoId: masterVideo._id
+        },
         {},
         accessToken
       );
