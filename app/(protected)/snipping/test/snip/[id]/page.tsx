@@ -1,5 +1,14 @@
 "use client";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import TimeRanges from "@/components/core/time-ranges";
 import LoadingVideoTrimmer from "@/components/skletons/loading-video-trimmer";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +18,37 @@ import { useAuth } from "@/hooks/auth-provider";
 import { useToast } from "@/hooks/use-toast";
 import { useParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
+
+export function EndTestsDialog({ isOpen, setIsOpen, onSubmit }) {
+  const handleOnSubmit = async (event) => {
+    event.preventDefault();
+    await onSubmit();
+    setIsOpen(false);
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Are you sure?</DialogTitle>
+          <DialogDescription>Do you really want to end tests</DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button variant="secondary" onClick={() => setIsOpen(false)}>
+            No
+          </Button>
+          <Button
+            className="bg-[#FF7645]"
+            type="submit"
+            onClick={handleOnSubmit}
+          >
+            Yes
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 const Page = () => {
   const { id } = useParams();
@@ -21,6 +61,7 @@ const Page = () => {
   const [startTrimTime, setStartTrimTime] = useState(null);
   const [endTrimTime, setEndTrimTime] = useState(null);
   const [timestampsWithIndex, setTimestampsWithIndex] = useState([]);
+  const [openEndTestDialog, setOpenEndTestDialog] = useState(false);
 
   const videoRef1 = useRef(null);
   const videoRef2 = useRef(null);
@@ -60,7 +101,10 @@ const Page = () => {
       const snip = await makeApiCall(
         `videourl/update-snip/${masterVideo?.videoURLArray[0]?._id}`,
         "POST",
-        { videoSnipTimeStamp: timestampsFormated },
+        {
+          videoSnipTimeStamp: timestampsFormated,
+          masterVideoId: masterVideo?._id,
+        },
         {},
         accessToken
       );
@@ -164,7 +208,7 @@ const Page = () => {
       setEndTrimTime(videoRef1.current.duration);
       handleSaveTrim(videoRef1.current.duration);
     }
-  }
+  };
 
   const convertTimeToSeconds = (timeString: string) => {
     const parts = timeString.split(":");
@@ -320,7 +364,10 @@ const Page = () => {
           >
             {videoRef1.current?.paused ? "Play" : "Pause"}
           </Button>
-          <Button onClick={handleSendTests} className="bg-[#FF7645] w-full ">
+          <Button
+            onClick={() => setOpenEndTestDialog(true)}
+            className="bg-[#FF7645] w-full "
+          >
             End Tests
           </Button>
         </div>
@@ -357,6 +404,12 @@ const Page = () => {
           </Button>
         </div>
       </div>
+
+      <EndTestsDialog
+        isOpen={openEndTestDialog}
+        setIsOpen={setOpenEndTestDialog}
+        onSubmit={handleSendTests}
+      />
     </div>
   );
 };
