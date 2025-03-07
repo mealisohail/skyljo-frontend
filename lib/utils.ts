@@ -14,3 +14,16 @@ export function getToken(): string | null {
   return tokenOBJ;
 }
 
+
+export function isExpired() {
+  const bearerObject = getToken();
+  if (bearerObject && typeof bearerObject.expires === "string") {
+    const expiresDate = new Date(bearerObject.expires);
+    if (expiresDate.getTime() < Date.now()) {
+      localStorage.removeItem("accessToken");
+      return true
+    }
+  }
+  return false
+}
+

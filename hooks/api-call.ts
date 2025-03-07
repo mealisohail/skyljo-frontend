@@ -1,3 +1,4 @@
+
 export const makeApiCall = async <T>(
     endpoint: string,
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
@@ -5,6 +6,7 @@ export const makeApiCall = async <T>(
     headers: Record<string, string> = {},
     bearer?: string
   ): Promise<T> => {
+
     try {
       const response = await fetch(`http://localhost:3001/v1/admin/${endpoint}`, {
         method,

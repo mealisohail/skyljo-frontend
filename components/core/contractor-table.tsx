@@ -86,12 +86,10 @@ export default function ContractorTestTable({ data, handleSendAI }) {
                   <TableCell>
                     <Badge
                       variant={
-                        video.StatusFromAI === "Pending"
-                          ? "secondary"
-                          : "success"
+                        video.videoURLArray[0]?.videoSnipTimeStamp?.length > 0 ? "success" : "secondary"
                       }
                     >
-                      {video.StatusFromAI}
+                      {video.videoURLArray[0]?.videoSnipTimeStamp?.length > 0 ? 'Snipping Done' : 'Pending'}
                     </Badge>
                   </TableCell>
                   <TableCell className="">
