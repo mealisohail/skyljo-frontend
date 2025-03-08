@@ -1,6 +1,7 @@
 import {
   CircleDollarSign,
   Combine,
+  FileCog,
   HandCoins,
   LayoutDashboard,
   LucideIcon,
@@ -43,9 +44,16 @@ export function getMenuList(pathname: string): Group[] {
         },
         {
           href: "/snipping",
-          label: "Snipping",
+          label: "Contractor Snipping",
           active: pathname.includes("/snipping"),
           icon: Combine,
+          submenus: [],
+        },
+        {
+          href: "/snipping/workers",
+          label: "Worker Snipping",
+          active: pathname.includes("/snipping/workers"),
+          icon: FileCog,
           submenus: [],
         },
         {

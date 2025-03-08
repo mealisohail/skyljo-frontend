@@ -3,8 +3,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { makeApiCall } from "./api-call";
 import { usePathname, useRouter } from "next/navigation";
-import { getToken } from "@/lib/utils";
+import { getToken, isExpired } from "@/lib/utils";
 import Image from "next/image";
+import { useToast } from "./use-toast";
 
 type User = {
   email: string;
@@ -26,12 +27,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
+  const { toast } = useToast();
 
   // Load token from localStorage and handle loading state when app initializes
   useEffect(() => {
     const token = getToken();
+    const expired = isExpired();
+
+    if(expired){
+      router.push("/");
+      setLoading(false);
+      return;
+    }
 
     if (token?.token && pathname === "/") {
+      setAccessToken(token?.token);
       router.push("/dashboard");
       setLoading(false);
       return;
@@ -43,6 +53,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
+    console.log("token", token);
     setAccessToken(token?.token);
     setLoading(false);
   }, []);
@@ -58,6 +69,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setAccessToken(userData?.tokens?.access?.token);
       router.push("/dashboard");
     } catch (error) {
+      toast({
+        title: "Error",
+        description: `${error.message}`,
+        variant: "destructive",
+      });
       console.error("Login failed:", error);
     }
   };

@@ -86,12 +86,10 @@ export default function ContractorTestTable({ data, handleSendAI }) {
                   <TableCell>
                     <Badge
                       variant={
-                        video.StatusFromAI === "Pending"
-                          ? "secondary"
-                          : "success"
+                        video.videoURLArray[0]?.videoSnipTimeStamp?.length > 0 ? "success" : "secondary"
                       }
                     >
-                      {video.StatusFromAI}
+                      {video.videoURLArray[0]?.videoSnipTimeStamp?.length > 0 ? 'Snipping Done' : 'Pending'}
                     </Badge>
                   </TableCell>
                   <TableCell className="">
@@ -113,7 +111,7 @@ export default function ContractorTestTable({ data, handleSendAI }) {
                       }
                       className="bg-[#ff6652]"
                     >
-                      Start Snipping
+                      {video.videoURLArray[0]?.videoSnipTimeStamp?.length > 0 ? 'Edit Snipping'  : 'Start Snipping'}
                     </Button>
                   </TableCell>
                 </TableRow>

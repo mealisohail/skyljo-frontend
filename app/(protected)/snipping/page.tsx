@@ -50,7 +50,7 @@ export default function ContractorsGrid() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {contractors?.map((contractor) => (
             <Link key={contractor.id} href={`/snipping/test/${contractor.id}`}>
-              <Card key={contractor.id} className="overflow-hidden">
+              <Card key={contractor.id} className="overflow-hidden hover:border hover:border-[#FE5209] hover:shadow-md transition-shadow">
                 <CardContent className="p-4 space-y-2 flex justify-center items-center flex-col">
                   <div className="w-[100px] h-[100px] relative">
                     <Image
