@@ -111,7 +111,7 @@ export default function ContractorTestTable({ data, handleSendAI }) {
                       }
                       className="bg-[#ff6652]"
                     >
-                      Start Snipping
+                      {video.videoURLArray[0]?.videoSnipTimeStamp?.length > 0 ? 'Edit Snipping'  : 'Start Snipping'}
                     </Button>
                   </TableCell>
                 </TableRow>

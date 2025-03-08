@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (token?.token && pathname === "/") {
+      setAccessToken(token?.token);
       router.push("/dashboard");
       setLoading(false);
       return;
@@ -52,6 +53,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
+    console.log("token", token);
     setAccessToken(token?.token);
     setLoading(false);
   }, []);

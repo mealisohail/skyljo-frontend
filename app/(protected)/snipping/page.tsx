@@ -14,7 +14,6 @@ export default function ContractorsGrid() {
   const [contractors, setContractors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-
   const getContractors = async () => {
     try {
       const contractors = await makeApiCall(
