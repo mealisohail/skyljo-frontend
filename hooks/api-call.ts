@@ -8,7 +8,7 @@ export const makeApiCall = async <T>(
   ): Promise<T> => {
 
     try {
-      const response = await fetch(`http://localhost:3001/v1/admin/${endpoint}`, {
+      const response = await fetch(`https://production.skyljo.in/v1/admin/${endpoint}`, {
         method,
         headers: {
           'Content-Type': 'application/json',
