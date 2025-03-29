@@ -10,7 +10,7 @@ const nextConfig = {
       ];
     },
     images: {
-      domains: ['example.com', 'group.schindler.com', 'upload.wikimedia.org', 'cdn-icons-png.flaticon.com', 'uploaded-skyljo-worker.s3.ap-south-1.amazonaws.com'],
+      domains: ['example.com', 'nsdcindia.org' ,'group.schindler.com', 'upload.wikimedia.org', 'cdn-icons-png.flaticon.com', 'uploaded-skyljo-worker.s3.ap-south-1.amazonaws.com'],
     },
     typescript: {
       ignoreBuildErrors: true,

@@ -50,9 +50,9 @@ export function getMenuList(pathname: string): Group[] {
           submenus: [],
         },
         {
-          href: "/snipping/workers",
+          href: "/workers",
           label: "Worker Snipping",
-          active: pathname.includes("/snipping/workers"),
+          active: pathname.includes("/workers"),
           icon: FileCog,
           submenus: [],
         },
